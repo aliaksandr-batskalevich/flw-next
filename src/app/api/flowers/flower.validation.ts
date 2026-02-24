@@ -5,6 +5,7 @@ import {FlowerColor, FlowerType, FlowerCategory} from '../../../types/flower.typ
 export const getFlowersSchema = z.object({
     page: z.coerce.number().min(0).default(0),
     limit: z.coerce.number().min(1).max(100).default(20),
+    hit: z.coerce.boolean().optional(),
 });
 
 // Схема валидации для создания цветка

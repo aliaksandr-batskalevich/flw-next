@@ -1,4 +1,4 @@
-import {IconHeartHandshake, IconLayoutDashboard, IconLibraryPhoto, IconMapPin, IconMenu3,} from "@tabler/icons-react";
+import {IconHeartHandshake, IconLayoutDashboard, IconLibraryPhoto, IconMapPin, IconMenu3, IconShoppingBag} from "@tabler/icons-react";
 
 import {uniqueId} from "lodash";
 
@@ -23,19 +23,25 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: "Галерея",
+    title: "Галерея (dev)",
     icon: IconLibraryPhoto,
     href: "/gallery",
   },
   {
     id: uniqueId(),
-    title: "Контакты",
+    title: "Контакты (dev)",
     icon: IconMapPin,
     href: "/contacts",
   },
   {
     id: uniqueId(),
-    title: "Партнеры",
+    title: "Оплата и доставка (dev)",
+    icon: IconShoppingBag,
+    href: "/payment",
+  },
+  {
+    id: uniqueId(),
+    title: "Партнеры (dev)",
     icon: IconHeartHandshake,
     href: "/partners",
   },

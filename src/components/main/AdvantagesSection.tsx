@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, Grid, Paper, Typography, Box } from '@mui/material';
+import { Container, Paper, Typography, Box } from '@mui/material';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import GrassIcon from '@mui/icons-material/Grass';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';

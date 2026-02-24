@@ -8,13 +8,24 @@ export class FlowerService {
     static async getAllFlowers(
         page: number = 0,
         limit: number = 12,
+        hit?: boolean,
     ): Promise<PaginatedResult<Flower>> {
         const skip = page * limit;
+
+        const where: Prisma.FlowerWhereInput = {};
+        if (hit !== undefined) {
+            where.isHit = hit;
+        }
+
         const [flowers, total] = await Promise.all([
             prisma.flower.findMany({
                 skip,
                 take: limit,
-                // orderBy: { createdAt: 'desc' }, // можно добавить сортировку
+                where,
+                orderBy: [
+                    { name: 'asc' },
+                    { subName: 'asc' },
+                ],
             }),
             prisma.flower.count(), // общее количество записей
         ]);

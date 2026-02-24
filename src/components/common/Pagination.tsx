@@ -39,7 +39,7 @@ const AppPagination = (props: AppPaginationProps) => {
     const handleLimitChange = (event: SelectChangeEvent<number>) => {
         const newValue = Number(event.target.value);
         updateSearchParams({
-            ['total']: newValue.toString(),
+            ['limit']: newValue.toString(),
             page: '0', // Сбрасываем на первую страницу
         });
     };
@@ -79,13 +79,13 @@ const AppPagination = (props: AppPaginationProps) => {
                                 // Стили для развернутого меню
                                 '& .MuiMenuItem-root': {
                                     color: customColors.text,
-                                    '&:hover': {
-                                        backgroundColor: customColors.primaryLight,
-                                    },
+                                    // '&:hover': {
+                                    //     backgroundColor: customColors.primaryLight,
+                                    // },
                                     // Стиль для выбранного пункта в меню
                                     '&.Mui-selected': {
                                         backgroundColor: customColors.primaryLight,
-                                        color: customColors.primaryDark,
+                                        color: 'white',
                                         fontWeight: 'bold',
                                     },
                                     '&.Mui-selected:hover': {

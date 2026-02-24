@@ -25,7 +25,7 @@ const Popular = () => {
                 Лучшее предложение
             </Typography>
             <Suspense fallback={<LoadingFallback/>}>
-                <FlowerCardsWrapper params={{}}/>
+                <FlowerCardsWrapper params={{page: 0, limit: 4, hit: true}}/>
             </Suspense>
             <Box sx={{paddingTop: '20px'}}>
                 <CatalogLink/>

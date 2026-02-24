@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        const pageData = await FlowerService.getAllFlowers(validatedParams.data.page, validatedParams.data.limit);
+        const pageData = await FlowerService.getAllFlowers(validatedParams.data.page, validatedParams.data.limit, validatedParams.data.hit);
 
         // Добавляем заголовки для кэширования
         const headers = {

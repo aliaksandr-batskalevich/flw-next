@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import {Box, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography} from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
 
 interface Post {
     id: string;
@@ -18,6 +18,7 @@ const posts: Post[] = [
         title: 'Стартовал прием заказов на 2026 год.',
         text: 'Принимаем заказы на 2026 год. Успейте заказать наши новинки. Подробности в каталоге. Хорошего всем настроения!!!',
         image: '/uploads/posts/1.jpg',
+        link: '/catalog',
         createdAt: new Date('02/21/2026'),
     }
 ];
@@ -34,7 +35,7 @@ const Post = ({ post }: { post: Post }) => {
             sx={{
                 padding: '10px',
                 display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' }, // на мобильных вертикально
+                flexDirection: 'row', // всегда горизонтально
                 width: '100%',
                 transition: 'box-shadow 0.2s',
                 '&:hover': {
@@ -49,29 +50,34 @@ const Post = ({ post }: { post: Post }) => {
                     width: '100px',
                     height: '100px',
                     objectFit: 'cover',
+                    display: { xs: 'none', sm: 'block' }, // скрываем на xs
                 }}
                 image={post.image}
                 alt={post.title}
             />
 
             {/* Правая часть с контентом */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <CardContent sx={{ flex: '1 1 auto' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, pl: 2 }}>
+                <CardContent sx={{ flex: '1 1 auto', p: 0 }}>
                     <Typography variant="h6" gutterBottom>
                         {post.title}
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
-                        {formattedDate}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" paragraph>
                         {post.text.length > 150 ? `${post.text.slice(0, 150)}...` : post.text}
+                    </Typography>
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ display: 'block', textAlign: 'left' }}
+                    >
+                        {formattedDate}
                     </Typography>
                 </CardContent>
 
                 {post.link && (
-                    <CardActions sx={{ justifyContent: 'flex-end', pt: 0 }}>
+                    <CardActions sx={{ justifyContent: 'flex-end', p: 0 }}>
                         <Button size="small" color="primary" href={post.link}>
-                            Читать далее
+                            Перейти
                         </Button>
                     </CardActions>
                 )}
@@ -89,7 +95,7 @@ const Blog = () => {
             <Box sx={{ mt: 4 }}>
                 <Grid container spacing={4}>
                     {posts.map((post) => (
-                        <Grid key={post.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                        <Grid key={post.id} size={{ xs: 12 }}>
                             <Post post={post} />
                         </Grid>
                     ))}
