@@ -25,6 +25,8 @@ export class FlowerService {
                 orderBy: [
                     { name: 'asc' },
                     { subName: 'asc' },
+                    { color: 'asc' },
+                    { colorDescription: 'asc' },
                 ],
             }),
             prisma.flower.count(), // общее количество записей
