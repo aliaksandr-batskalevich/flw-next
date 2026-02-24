@@ -6,7 +6,7 @@ export function getFlowerColor(color: FlowerColor): string {
             return 'Зеленый';
         case FlowerColor.RED:
             return 'Красный';
-        case FlowerColor.PINK:
+        case FlowerColor.ROSE:
             return 'Розовый';
         case FlowerColor.WHITE:
             return 'Белый';
@@ -14,6 +14,12 @@ export function getFlowerColor(color: FlowerColor): string {
             return 'Синий';
         case FlowerColor.BURGUNDY:
             return 'Бургунд';
+        case FlowerColor.ORANGE:
+            return 'Оранжевый';
+        case FlowerColor.YELLOW:
+            return 'Желтый';
+        case FlowerColor.SILVER:
+            return 'Серебряный';
         case FlowerColor.MIX:
             return 'Микс';
         default:

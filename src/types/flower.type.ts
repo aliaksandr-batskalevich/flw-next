@@ -11,9 +11,12 @@ export enum FlowerCategory {
 export enum FlowerColor {
     GREEN = 'GREEN',
     RED = 'RED',
-    PINK = 'PINK',
+    ROSE = 'ROSE',
     WHITE = 'WHITE',
     BLUE = 'BLUE',
     BURGUNDY = 'BURGUNDY',
+    ORANGE = 'ORANGE',
+    YELLOW = 'YELLOW',
+    SILVER = 'SILVER',
     MIX = 'MIX',
 }
