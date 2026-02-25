@@ -21,30 +21,30 @@ const Menuitems = [
     icon: IconMenu3,
     href: "/catalog",
   },
+  // {
+  //   id: uniqueId(),
+  //   title: "Галерея (dev)",
+  //   icon: IconLibraryPhoto,
+  //   href: "/gallery",
+  // },
   {
     id: uniqueId(),
-    title: "Галерея (dev)",
-    icon: IconLibraryPhoto,
-    href: "/gallery",
-  },
-  {
-    id: uniqueId(),
-    title: "Контакты (dev)",
+    title: "Контакты",
     icon: IconMapPin,
     href: "/contacts",
   },
-  {
-    id: uniqueId(),
-    title: "Оплата и доставка (dev)",
-    icon: IconShoppingBag,
-    href: "/payment",
-  },
-  {
-    id: uniqueId(),
-    title: "Партнеры (dev)",
-    icon: IconHeartHandshake,
-    href: "/partners",
-  },
+  // {
+  //   id: uniqueId(),
+  //   title: "Оплата и доставка (dev)",
+  //   icon: IconShoppingBag,
+  //   href: "/payment",
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: "Партнеры (dev)",
+  //   icon: IconHeartHandshake,
+  //   href: "/partners",
+  // },
 ];
 
 export default Menuitems;

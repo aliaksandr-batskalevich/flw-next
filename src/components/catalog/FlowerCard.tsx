@@ -121,9 +121,13 @@ const FlowerCard = ({flower, isAdmin}: CardProps) => {
                         mt={1}
                     >
                         <Stack direction="row" alignItems="center">
-                            <Typography variant="h6">{`${flower.price} руб.`}</Typography>
+                            <Typography variant="h6">{
+                                flower.isActive
+                                    ? `${flower.price.toFixed(2)} руб.`
+                                    : `Нет в наличии`
+                            }</Typography>
                         </Stack>
-                        <FlowerDetails id={flower.id}/>
+                        {/*<FlowerDetails id={flower.id}/>*/}
                     </Stack>
                 </CardContent>
             </Card>

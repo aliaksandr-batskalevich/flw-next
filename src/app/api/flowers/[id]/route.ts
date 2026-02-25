@@ -1,8 +1,10 @@
-// PATCH /api/flowers/[id] - обновить цветок
 import {NextResponse} from "next/server";
 import {flowerUpdateSchema} from "../flower.validation";
 import {FlowerService} from "../../../../services/flower.service";
 import {FlowerDto} from "../../../../dtos/flower.dto";
+import { revalidatePath } from 'next/cache';
+
+export const dynamic = 'force-dynamic';
 
 export async function PATCH(
     request: Request,
@@ -37,6 +39,7 @@ export async function PATCH(
 
         // Обновляем запись
         const updatedFlower = await FlowerService.updateFlower(id, validation.data);
+        revalidatePath('/catalog');
 
         return NextResponse.json(new FlowerDto(updatedFlower));
     } catch (error) {

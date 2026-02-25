@@ -19,7 +19,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { CModal, CModalBody, CModalHeader, CModalTitle } from '@coreui/react';
-import { useRouter } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { getFlowerColorOptions } from '../../utils/color.util';
 import { getFlowerTypeOptions } from '../../utils/flower-type.util';
 import { getFlowerCategoryOptions } from '../../utils/flower-category.util';
@@ -36,12 +36,20 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const [smallPhotoFile, setSmallPhotoFile] = useState<File | null>(null);
     const [largePhotoFile, setLargePhotoFile] = useState<File | null>(null);
     const [smallPhotoPreview, setSmallPhotoPreview] = useState<string | null>(null);
     const [largePhotoPreview, setLargePhotoPreview] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+
+    const handleRefresh = () => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('t', Date.now().toString());
+        router.push(`${pathname}?${params.toString()}`);
+    };
 
     // Состояния формы
     const [formData, setFormData] = useState({
@@ -51,7 +59,7 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
         colorDescription: '',
         type: '',
         category: '',
-        price: 0,
+        price: '',
         isSale: false,
         isHit: false,
         isLittleLeft: false,
@@ -71,7 +79,7 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
                 colorDescription: editableFLower.colorDescription || '',
                 type: editableFLower.type || '',
                 category: editableFLower.category || '',
-                price: editableFLower.price || 0,
+                price: editableFLower.price?.toString() || '',
                 isSale: editableFLower.isSale || false,
                 isHit: editableFLower.isHit || false,
                 isLittleLeft: editableFLower.isLittleLeft || false,
@@ -88,7 +96,7 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
                 colorDescription: '',
                 type: '',
                 category: '',
-                price: 0,
+                price: '',
                 isSale: false,
                 isHit: false,
                 isLittleLeft: false,
@@ -120,6 +128,23 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
             ...prev,
             [name]: type === 'checkbox' ? checked : value,
         }));
+    };
+
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value;
+
+        // Разрешаем пустую строку
+        if (rawValue === '') {
+            setFormData(prev => ({ ...prev, price: '' }));
+            return;
+        }
+
+        // Регулярное выражение: только цифры, опционально точка и не более двух цифр после
+        const regex = /^\d*\.?\d{0,2}$/;
+        if (regex.test(rawValue)) {
+            setFormData(prev => ({ ...prev, price: rawValue }));
+        }
+        // Если не подходит — просто игнорируем ввод
     };
 
     const handleSelectChange = (e: SelectChangeEvent) => {
@@ -198,6 +223,11 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
                 throw new Error('Необходимо загрузить оба фото');
             }
 
+            const price = parseFloat(formData.price);
+            if (isNaN(price) || price <= 0) {
+                throw new Error('Цена должна быть положительным числом');
+            }
+
             // Определяем метод и URL
             const url = isEditing ? `/api/flowers/${editableFLower!.id}` : '/api/flowers';
             const method = isEditing ? 'PATCH' : 'POST';
@@ -207,7 +237,7 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     ...formData,
-                    price: parseFloat(String(formData.price)),
+                    price,
                     smallPhoto: smallPhotoUrl,
                     largePhoto: largePhotoUrl,
                 }),
@@ -221,7 +251,7 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
             // Успех
             handleClose();
             if (onFlowerAdded) onFlowerAdded();
-            router.refresh();
+            handleRefresh();
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -334,12 +364,11 @@ export default function AddFlowerButton({ editableFLower, onFlowerAdded }: AddFl
                             <TextField
                                 label="Цена"
                                 name="price"
-                                type="number"
+                                type="text"
                                 value={formData.price}
-                                onChange={handleChange}
+                                onChange={handlePriceChange}
                                 required
                                 fullWidth
-                                inputProps={{ min: 0, step: 0.01 }}
                             />
 
                             <Stack spacing={2}>

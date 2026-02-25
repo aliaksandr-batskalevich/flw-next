@@ -1,10 +1,16 @@
-import React from 'react';
-import {Box} from "@mui/material";
+import { Box } from '@mui/material';
+import Image from 'next/image';
 
 const Slogan = () => {
     return (
         <Box>
-            <h2>Центр качественной рассады</h2>
+            <Image
+                src="/images/logos/flw-header.png"
+                alt="Центр качественной рассады"
+                width={494}
+                height={50}
+                style={{ maxWidth: '100%', height: 'auto' }}
+            />
         </Box>
     );
 };

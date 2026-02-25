@@ -3,7 +3,9 @@ import {FlowerService} from "../../../services/flower.service";
 import {flowerCreateSchema, getFlowersSchema} from './flower.validation';
 import {FlowerDto} from "../../../dtos/flower.dto";
 import {PaginatedResult} from "../../../dtos/paginated-result.dto";
+import { revalidatePath } from 'next/cache';
 
+export const dynamic = 'force-dynamic';
 
 // GET /api/flowers
 export async function GET(request: NextRequest) {
@@ -77,6 +79,7 @@ export async function POST(request: Request) {
             smallPhoto: data.smallPhoto,
             largePhoto: data.largePhoto,
         });
+        revalidatePath('/catalog');
 
         return NextResponse.json(new FlowerDto(flower), { status: 201 });
     } catch (error) {

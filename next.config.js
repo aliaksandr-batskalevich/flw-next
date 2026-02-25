@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -9,7 +8,15 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'localhost',
       },
-      // если есть продакшн домен — добавить
+      {
+        protocol: 'https',
+        hostname: 'flw.by',
+      },
+      // если есть поддомены, например dev.flw.by:
+      // {
+      //   protocol: 'https',
+      //   hostname: 'dev.flw.by',
+      // },
     ],
   },
 };
