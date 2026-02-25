@@ -3,6 +3,7 @@ import Carousel from "../../components/main/Carousel";
 import AdvantagesSection from "../../components/main/AdvantagesSection";
 import Popular from "../../components/main/Popular";
 import Blog from "../../components/main/Blog";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Flw.by - Рассада цветов оптом. Купить рассаду петунии, бегонии в Минске, Бресте',
